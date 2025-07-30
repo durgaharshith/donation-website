@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
 
 const LoginPage = () => {
-  const [mode, setMode] = useState("login"); // 'login' or 'signin'
+  const [mode, setMode] = useState("login");
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ const LoginPage = () => {
     setError("");
     try {
       const res = await axiosClient.post("/auth/login", form);
-      console.log("✅ Frontend: current user response", res.data);
       dispatch(setUser(res.data.user));
       navigate("/dashboard");
     } catch (err) {
@@ -64,17 +63,12 @@ const LoginPage = () => {
           </button>
         </div>
 
-        {/* Mode-Specific Info */}
-        {mode === "login" && (
-          <p className="text-xs text-gray-500 text-center">
-            🔐 Use your email and password or sign in with Google.
-          </p>
-        )}
-        {mode === "signin" && (
-          <p className="text-xs text-gray-500 text-center">
-            🆕 Sign up instantly using your Google account.
-          </p>
-        )}
+        {/* Info */}
+        <p className="text-xs text-gray-500 text-center">
+          {mode === "login"
+            ? "🔐 Use your email and password or sign in with Google."
+            : "🆕 Sign up instantly using your Google account."}
+        </p>
 
         <h1 className="text-3xl font-extrabold text-center text-blue-800">
           {mode === "login" ? "Login to Donate" : "Create an Account"}
@@ -137,12 +131,10 @@ const LoginPage = () => {
           </form>
         )}
 
-        {/* Google Auth Button */}
+        {/* Google Auth */}
         <div className="flex flex-col items-center gap-4">
           <button
-            onClick={
-              mode === "signin" ? handleGoogleSignin : handleGoogleLogin
-            }
+            onClick={mode === "signin" ? handleGoogleSignin : handleGoogleLogin}
             className="w-full flex justify-center items-center gap-3 py-3 px-4 bg-white border border-gray-300 rounded-xl shadow hover:shadow-lg hover:scale-105 transition-all duration-300"
           >
             <FaGoogle className="text-red-500 text-lg" />

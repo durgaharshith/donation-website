@@ -5,10 +5,7 @@ import { FaDonate } from "react-icons/fa";
 
 const DonationPage = () => {
   const user = useSelector((state) => state.auth.user);
-  const [form, setForm] = useState({
-    amount: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ amount: "", message: "" });
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
 
@@ -75,9 +72,7 @@ const DonationPage = () => {
                   paymentStatus: "Cancelled",
                 });
                 setFeedback("⚠️ You cancelled the donation.");
-              } catch (err) {
-                console.error("Error marking donation cancelled:", err);
-              }
+              } catch {}
             },
           },
         };
@@ -85,8 +80,7 @@ const DonationPage = () => {
         rzp.open();
       };
       document.body.appendChild(script);
-    } catch (err) {
-      console.error("Donation failed:", err);
+    } catch {
       setFeedback("❌ Donation failed. Please try again later.");
     } finally {
       setLoading(false);
@@ -96,7 +90,6 @@ const DonationPage = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 p-6">
       <div className="relative w-full max-w-md bg-white/40 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl p-8">
-        {/* Header */}
         <div className="flex flex-col items-center text-center mb-6">
           <FaDonate className="text-blue-600 text-4xl mb-2" />
           <h2 className="text-3xl font-extrabold text-blue-800">
@@ -107,7 +100,6 @@ const DonationPage = () => {
           </p>
         </div>
 
-        {/* Feedback */}
         {feedback && (
           <div
             className={`mb-4 text-sm font-medium text-center ${
@@ -122,9 +114,7 @@ const DonationPage = () => {
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={handleDonate} className="space-y-5">
-          {/* Amount Field */}
           <div className="relative">
             <input
               type="number"
@@ -141,7 +131,6 @@ const DonationPage = () => {
             </label>
           </div>
 
-          {/* Message Field */}
           <div className="relative">
             <textarea
               name="message"
@@ -156,7 +145,6 @@ const DonationPage = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading || !form.amount}

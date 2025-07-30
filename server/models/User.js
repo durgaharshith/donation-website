@@ -1,4 +1,3 @@
-//server/models/User.js
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
@@ -7,14 +6,11 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   profilePic: String,
   password: String,
-  // models/User.js
   role: {
     type: String,
     enum: ['user', 'admin'],
-    default: 'user'
-  }
-
+    default: 'user',
+  },
 }, { timestamps: true });
-
 
 export default mongoose.model('User', userSchema);

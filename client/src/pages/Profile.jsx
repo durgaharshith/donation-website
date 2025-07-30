@@ -29,7 +29,7 @@ const Profile = () => {
       } else {
         setStatus(`❌ ${data.message || "Failed to set password"}`);
       }
-    } catch (err) {
+    } catch {
       setStatus("❌ An error occurred while setting the password");
     }
   };
@@ -47,8 +47,8 @@ const Profile = () => {
         <div className="flex flex-col sm:flex-row items-center gap-6">
           {user?.profilePic ? (
             <img
-              src={user?.profilePic}
-              alt={user?.name}
+              src={user.profilePic}
+              alt={user.name}
               className="w-24 h-24 rounded-full shadow-lg border-2 border-blue-300 object-cover"
             />
           ) : (
@@ -99,9 +99,7 @@ const Profile = () => {
             {status && (
               <p
                 className={`text-sm mt-2 text-center ${
-                  status.includes("✅")
-                    ? "text-green-600"
-                    : "text-red-500"
+                  status.includes("✅") ? "text-green-600" : "text-red-500"
                 }`}
               >
                 {status}

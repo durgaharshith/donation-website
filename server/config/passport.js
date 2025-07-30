@@ -1,4 +1,4 @@
-//server/config/paasport.js
+// server/config/passport.js
 import passport from "passport";
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User.js';
@@ -10,12 +10,9 @@ passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.GOOGLE_CALLBACK_URL,
-  passReqToCallback: true  // 💥 enables access to req inside callback
+  passReqToCallback: true
 }, async (req, accessToken, refreshToken, profile, done) => {
   const intent = req.query.state || 'login';
-
-  console.log('📩 profile.email:', profile.emails[0].value);
-  console.log('🧭 intent:', intent);
 
   try {
     let user = await User.findOne({ googleId: profile.id });
@@ -32,7 +29,6 @@ passport.use(new GoogleStrategy({
           return done(null, false, { message: "Account doesn't exist. Please Sign In first." });
         }
 
-        // intent === 'signin'
         user = await User.create({
           googleId: profile.id,
           name: profile.displayName,
@@ -44,18 +40,19 @@ passport.use(new GoogleStrategy({
 
     return done(null, user);
   } catch (err) {
-    console.error('❌ Google Strategy Error:', err);
     return done(err, null);
   }
 }));
 
-
-passport.serializeUser((user, done)=>{
-    console.log('✅ serializeUser:', user.id);
-    done(null, user.id)
+passport.serializeUser((user, done) => {
+  done(null, user.id);
 });
-passport.deserializeUser(async(id, done)=>{
+
+passport.deserializeUser(async (id, done) => {
+  try {
     const user = await User.findById(id);
-    console.log('✅ deserializeUser:', user?.email);
-    done(null, user)
-})
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});

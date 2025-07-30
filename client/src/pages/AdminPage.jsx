@@ -34,7 +34,6 @@ const AdminPage = () => {
         }
       } catch (err) {
         setError('Failed to fetch data');
-        console.error(err);
       } finally {
         setLoading(false);
       }
@@ -110,7 +109,6 @@ const AdminPage = () => {
       <div className="max-w-6xl mx-auto bg-white/40 backdrop-blur-lg shadow-2xl rounded-2xl p-8 border border-white/30">
         <h1 className="text-3xl font-extrabold text-blue-800 mb-6">Admin Dashboard</h1>
 
-        {/* Tabs */}
         <div className="flex gap-4 mb-8">
           <button
             onClick={() => setTab('donations')}
@@ -134,7 +132,6 @@ const AdminPage = () => {
           </button>
         </div>
 
-        {/* Feedback */}
         {loading && (
           <p className="text-sm text-gray-500 animate-pulse">
             Loading {tab}...
@@ -142,7 +139,6 @@ const AdminPage = () => {
         )}
         {error && <p className="text-sm text-red-500">{error}</p>}
 
-        {/* Donations Table */}
         {tab === 'donations' && !loading && (
           <>
             {donations.length === 0 ? (
@@ -188,7 +184,6 @@ const AdminPage = () => {
           </>
         )}
 
-        {/* Users Table */}
         {tab === 'users' && !loading && (
           <>
             {users.length === 0 ? (

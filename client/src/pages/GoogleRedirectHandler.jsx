@@ -13,15 +13,13 @@ const GoogleRedirectHandler = () => {
     const fetchUser = async () => {
       try {
         const res = await axiosClient.get('/auth/current-user');
-        console.log('✅ Google Redirect: current user response', res.data);
         if (res.data) {
           dispatch(setUser(res.data));
           navigate('/dashboard');
         } else {
           navigate('/login');
         }
-      } catch (err) {
-        console.error('Google redirect failed', err);
+      } catch {
         navigate('/login');
       }
     };
@@ -31,12 +29,8 @@ const GoogleRedirectHandler = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 p-6">
-      {/* Glassmorphic Loading Card */}
       <div className="bg-white/40 backdrop-blur-lg border border-white/30 rounded-2xl shadow-2xl p-8 flex flex-col items-center">
-        {/* Spinner */}
         <FaSpinner className="text-blue-600 text-5xl animate-spin mb-4" />
-
-        {/* Loading Text */}
         <p className="text-lg font-medium text-gray-700">
           Logging you in with Google...
         </p>

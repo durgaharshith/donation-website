@@ -22,7 +22,6 @@ const Dashboard = () => {
         );
         setDonations(sorted);
       } catch (err) {
-        console.error('Failed to fetch donations', err);
         setError('Failed to fetch donations');
       } finally {
         setLoading(false);
