@@ -29,12 +29,13 @@ const LoginPage = () => {
   };
 
   const handleGoogleSignin = () => {
-    window.open("http://localhost:5000/api/auth/google?intent=signin", "_self");
-  };
+  window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google?intent=signin`, "_self");
+};
 
-  const handleGoogleLogin = () => {
-    window.open("http://localhost:5000/api/auth/google?intent=login", "_self");
-  };
+const handleGoogleLogin = () => {
+  window.open(`${import.meta.env.VITE_API_BASE_URL}/auth/google?intent=login`, "_self");
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-blue-100 p-6">
