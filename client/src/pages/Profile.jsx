@@ -12,7 +12,7 @@ const Profile = () => {
     e.preventDefault();
     setStatus("");
     try {
-      const res = await fetch("http://localhost:5000/api/users/set-password", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/set-password`, {
         method: "POST",
         credentials: "include",
         headers: {
